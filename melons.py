@@ -1,3 +1,6 @@
+from random import choice
+import datetime
+
 """Classes for melon orders."""
 class AbstractMelonOrder:
     """Abstract base class that other melon orders inherit from"""
@@ -9,15 +12,16 @@ class AbstractMelonOrder:
         self.shipped = False
         self.order_type = None
         self.tax = 0
+        self.base_price = 5
+        self.order_time = datetime.datetime.now()
 
     def get_total(self):
-
-        base_price = 5
-
+        # self.get_base_price()
+        
         if self.species == 'christmas':
-            base_price = base_price * 1.5
+            self.base_price = self.base_price * 1.5
 
-        total = (1 + self.tax) * self.qty * base_price
+        total = (1 + self.tax) * self.qty * self.base_price
 
         if self.order_type == "international" and self.qty < 10:
             total += 3
@@ -27,6 +31,16 @@ class AbstractMelonOrder:
     def mark_shipped(self):
 
         self.shipped = True
+
+    def get_base_price(self):
+
+        self.base_price = choice(range(5, 10))
+        hour = self.order_time.hour
+        weekday = self.order_time.weekday
+        
+        if hour in range(8, 11) and weekday in range(0, 5):
+            self.base_price += 4
+
 
 class DomesticMelonOrder(AbstractMelonOrder):
     """A melon order within the USA."""
@@ -73,3 +87,4 @@ class GovernmentMelonOrder(AbstractMelonOrder):
             self.passed_inspection = True
         elif not passed:
             self.passed_inspection = False
+
