@@ -73,15 +73,3 @@ class GovernmentMelonOrder(AbstractMelonOrder):
             self.passed_inspection = True
         elif not passed:
             self.passed_inspection = False
-
-# x = GovernmentMelonOrder(...)
-# x is GovernmentMelonOrder
-# x is AbstractMelonOrder
-        
-# if __name__ == '__main__': # Only run if I invoke this file directly - python3 melons.py
-#     # some tests that check if the melon classes work right
-
-# # In some other file
-# import melons
-# order = GovernmentMelonOrder(...)
-# stuff under the if statements doesn't run
